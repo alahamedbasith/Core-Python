@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mysql with flask</title>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'home.css')}}">
+</head>
+
+<body>
+    <h1>Python Flask With MySql</h1>
+    <h6>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{message}}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </h6>
+    <p><a href="{{ url_for('addUsers') }}">Add Users</a></p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>CITY</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+        </tr>
+        {% for user_data in data %}
+        <tr>
+            <td>{{ user_data.ID }}</td>
+            <td>{{ user_data.NAME }}</td>
+            <td>{{ user_data.AGE }}</td>
+            <td>{{ user_data.CITY }}</td>
+            <td><a href="{{ url_for('editUser', id=user_data.ID) }}">Edit</a></td> 
+            <td><a href="{{ url_for('deleteUser', id=user_data.ID) }}" onclick="return confirm('Are you confirm to delete?');">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
